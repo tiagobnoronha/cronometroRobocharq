@@ -1,8 +1,0 @@
-# Cofiguracao Porta Serial
-PORT=COM6
-BAUDRATE=9600
-INI_BIT=0
-FIM_BIT=3
-
-# Tamanho da Fonte
-FONTSIZE=150
