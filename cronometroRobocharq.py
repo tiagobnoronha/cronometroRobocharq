@@ -92,6 +92,7 @@ class App(tk.Tk):
         baudrate = int(configs.get('BAUDRATE').data)
         iniBit = int(configs.get('INI_BIT').data)
         fimBit = int(configs.get('FIM_BIT').data)
+        
 
         self.serialThr = SerialThr(port, baudrate, iniBit, fimBit, self.onIni, self.onFim)
 
@@ -131,6 +132,9 @@ class App(tk.Tk):
         self.bind('<[>', lambda e: self.onResizeFont(0.9))
         self.bind('<h>', lambda e: self.onHelp())
         self.updateTime()
+
+        self.timeout = int(configs.get('TIMEOUT').data)
+
         self.timer.start()
         self.serialThr.start()
 
@@ -159,7 +163,8 @@ class App(tk.Tk):
     def onFim(self):
         print('onFim')
         if self.timer.estado == Estado.RUNNING:
-            self.timer.pause()
+            if self.timer.cont > self.timeout:
+                self.timer.pause()
 
     def destroy(self) -> None:
         self.timer.estado = Estado.DESTROY
